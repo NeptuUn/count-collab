@@ -12,6 +12,7 @@ Count Collab provides shared counts that everyone can use.
 - "Private" counters shareable via direct link
 - No Login
 - Landingpage
+- Live update of counters
 
 ### `<v1>`
 - Counter Browser
