@@ -22,6 +22,9 @@ Count Collab provides shared counts that everyone can use.
 ### `<v3>`
 - Discord integration
 
+### `<v4>`
+- Milestones
+
 ## Concept / Ideas
 ### Concept of Counters
 
@@ -33,6 +36,7 @@ Count Collab provides shared counts that everyone can use.
 - `<mvp>` counters can be increased or decresed always one at a time (+1 / -1)
 - `<mvp>` counter are directly accessibile via path `/c/{uuid}`
 - `<v1>` configurable if counters can be increased, decreased, or both
+- `<v4>` can have configured milestones e.g. 100, 1000, 1000000 - that's up to the user
 
 #### Private vs Public
 ##### Public Counter
