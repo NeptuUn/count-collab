@@ -5,8 +5,8 @@
   let { children } = $props();
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-  <nav class="bg-white shadow-sm border-b border-slate-200">
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100">
+  <nav class="sticky top-0 z-20 bg-white/90 backdrop-blur shadow-sm border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <h1 class="text-2xl font-bold text-slate-900">
         <a href="/">Count Collab</a>
@@ -14,11 +14,12 @@
       <div class="flex gap-4">
         <a href="/" class="text-slate-700 hover:text-slate-900 transition">Home</a>
         <a href="/counters" class="text-slate-700 hover:text-slate-900 transition">Browser</a>
+        <a href="/create" class="text-slate-700 hover:text-slate-900 transition">Create</a>
       </div>
     </div>
   </nav>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     {@render children()}
   </main>
 

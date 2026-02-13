@@ -46,17 +46,26 @@
       <h2 class="text-2xl font-bold text-slate-900 mb-6">Popular Counters</h2>
       <div class="grid gap-4">
         {#each data.popularCounters as counter (counter.id)}
-          <div class="border border-slate-200 rounded p-4 hover:border-blue-400 transition cursor-pointer">
+          <a
+            href={`/c/${counter.id}`}
+            class="block border border-slate-200 rounded p-4 hover:border-blue-400 transition"
+          >
             <div class="flex justify-between items-start">
               <div>
                 <h3 class="font-semibold text-slate-900">{counter.title}</h3>
-                <p class="text-sm text-slate-600">{counter.description}</p>
+                {#if counter.description}
+                  <p class="text-sm text-slate-600">{counter.description}</p>
+                {/if}
               </div>
               <div class="text-3xl font-bold text-blue-600">{counter.count}</div>
             </div>
-          </div>
+          </a>
         {/each}
       </div>
+    </section>
+  {:else}
+    <section class="bg-white rounded-lg shadow p-8 text-center text-slate-600">
+      No counters yet. <a href="/create" class="text-blue-600">Create the first one</a>.
     </section>
   {/if}
 </div>

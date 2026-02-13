@@ -3,6 +3,6 @@ import { listPublicCounters } from "$lib/server/counters";
 
 export const load: PageServerLoad = async () => {
   return {
-    popularCounters: listPublicCounters(6),
+    counters: listPublicCounters(100),
   };
 };
