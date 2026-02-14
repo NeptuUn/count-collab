@@ -1,6 +1,7 @@
 # Development Guidelines
 
 ## Technology
+
 - SvelteKit
 - Postgres
 - TypeScript

@@ -1,4 +1,4 @@
-import { writable, type Writable } from 'svelte/store';
+import { writable, type Writable } from "svelte/store";
 
 /**
  * Create a typed context helper for managing reactive state
@@ -15,6 +15,6 @@ export function createContext<T>(key: string): {
     inject: (): T => {
       // Implementation would use getContext
       throw new Error(`Context "${key}" not found`);
-    }
+    },
   };
 }
