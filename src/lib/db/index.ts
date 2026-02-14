@@ -1,5 +1,5 @@
-import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import * as schema from "./schema";
 
 // TODO: Use environment variables in production

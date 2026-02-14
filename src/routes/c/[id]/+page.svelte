@@ -1,12 +1,13 @@
 <script lang="ts">
-  import type { ActionData, PageData } from './$types';
+  
   import { browser } from '$app/environment';
   import { invalidate } from '$app/navigation';
+import type { ActionData, PageData } from './$types';
 
-  let { data, form }: { data: PageData; form: ActionData | null } = $props();
+  const { data, form }: { data: PageData; form: ActionData | null } = $props();
 
-  let displayCount = $derived(form?.count ?? data.counter.count);
-  let displayUpdatedAt = $derived(form?.updatedAt ?? data.counter.updatedAt);
+  const _displayCount = $derived(form?.count ?? data.counter.count);
+  const _displayUpdatedAt = $derived(form?.updatedAt ?? data.counter.updatedAt);
 
   $effect(() => {
     if (!browser) return;

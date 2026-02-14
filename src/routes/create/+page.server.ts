@@ -1,6 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
 import { createCounter } from "$lib/server/counters";
+import type { Actions } from "./$types";
 
 type ActionErrors = {
   title?: string;

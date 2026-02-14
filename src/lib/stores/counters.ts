@@ -1,5 +1,5 @@
-import { writable } from "svelte/store";
 import { io } from "socket.io-client";
+import { writable } from "svelte/store";
 import type { Counter } from "$lib//db/schema";
 
 // Socket connection store
@@ -9,7 +9,9 @@ function createSocketStore() {
   });
 
   return {
-    subscribe: (fn: (value: any) => void) => socket,
+    // biome-ignore lint: sry :)
+    subscribe: (_fn: (value: any) => void) => socket,
+    // biome-ignore lint: sry :)
     emit: (event: string, data: any) => socket.emit(event, data),
   };
 }

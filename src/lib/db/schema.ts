@@ -1,13 +1,13 @@
 // Database schema and types
+
 import {
+  integer,
   pgTable,
   serial,
   text,
-  integer,
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 
 export const counters = pgTable("counters", {
   id: uuid("id").defaultRandom().primaryKey(),

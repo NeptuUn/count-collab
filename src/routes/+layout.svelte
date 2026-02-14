@@ -1,8 +1,7 @@
 <script lang="ts">
   import '../app.css';
-  import { dev } from '$app/environment';
 
-  let { children } = $props();
+  const { children } = $props();
 </script>
 
 <div class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100">

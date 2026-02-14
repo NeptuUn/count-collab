@@ -1,4 +1,4 @@
-import { writable, type Writable } from "svelte/store";
+
 
 /**
  * Create a typed context helper for managing reactive state
@@ -9,7 +9,7 @@ export function createContext<T>(key: string): {
   inject: () => T;
 } {
   return {
-    provide: (value: T) => {
+    provide: (_value: T) => {
       // Implementation would use setContext
     },
     inject: (): T => {

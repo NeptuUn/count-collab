@@ -1,10 +1,10 @@
 import { error, fail } from "@sveltejs/kit";
-import type { Actions, PageServerLoad } from "./$types";
 import {
   getCounter,
   getCounterHistory,
   incrementCounter,
 } from "$lib/server/counters";
+import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, depends }) => {
   const counter = getCounter(params.id);
