@@ -9,14 +9,6 @@ Count Collab is a lightweight, shareable counter app. Create a counter, send the
 - Private counters accessible via a shareable link
 - No login for the MVP
 
-## Tech Stack
-
-- SvelteKit 2 + Svelte 5
-- Vite 5
-- TypeScript
-- Tailwind CSS
-- Drizzle ORM (Postgres)
-- Socket.IO (planned for realtime)
 
 ## Getting Started
 
