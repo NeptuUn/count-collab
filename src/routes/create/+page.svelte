@@ -3,15 +3,15 @@
 
   const { form }: { form: ActionData | null } = $props();
 
-  let _title = $state(form?.values?.title ?? '');
-  let _description = $state(form?.values?.description ?? '');
-  let _visibility = $state<'public' | 'private'>(form?.values?.visibility ?? 'public');
+  let title = $state(form?.values?.title ?? '');
+  let description = $state(form?.values?.description ?? '');
+  let visibility = $state<'public' | 'private'>(form?.values?.visibility ?? 'public');
 
   $effect(() => {
     if (!form?.values) return;
-    _title = form.values.title ?? '';
-    _description = form.values.description ?? '';
-    _visibility = form.values.visibility ?? 'public';
+    title = form.values.title ?? '';
+    description = form.values.description ?? '';
+    visibility = form.values.visibility ?? 'public';
   });
 </script>
 

@@ -6,8 +6,8 @@ import type { ActionData, PageData } from './$types';
 
   const { data, form }: { data: PageData; form: ActionData | null } = $props();
 
-  const _displayCount = $derived(form?.count ?? data.counter.count);
-  const _displayUpdatedAt = $derived(form?.updatedAt ?? data.counter.updatedAt);
+  const displayCount = $derived(form?.count ?? data.counter.count);
+  const displayUpdatedAt = $derived(form?.updatedAt ?? data.counter.updatedAt);
 
   $effect(() => {
     if (!browser) return;

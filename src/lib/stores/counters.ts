@@ -1,6 +1,4 @@
 import { io } from "socket.io-client";
-import { writable } from "svelte/store";
-import type { Counter } from "$lib//db/schema";
 
 // Socket connection store
 function createSocketStore() {
@@ -16,17 +14,6 @@ function createSocketStore() {
   };
 }
 
-// Active counters store
-export const activeCounters = writable<Map<string, Counter>>(new Map());
-
 // Socket store
 export const socket = createSocketStore();
 
-// Counter subscription
-export function subscribeToCounter(counterId: string) {
-  socket.emit("counter:subscribe", counterId);
-}
-
-export function unsubscribeFromCounter(counterId: string) {
-  socket.emit("counter:unsubscribe", counterId);
-}

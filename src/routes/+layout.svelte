@@ -28,9 +28,3 @@
     </div>
   </footer>
 </div>
-
-{#if dev}
-  <div class="fixed bottom-4 right-4 text-xs bg-slate-900 text-white px-2 py-1 rounded">
-    Development Mode
-  </div>
-{/if}
