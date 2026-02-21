@@ -35,7 +35,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Lint
-        run: bun run lint:ci
+        run: bunx @biomejs/biome ci
 
       - name: Prepare Svelte
         run: bun run svelte-prepare
@@ -72,7 +72,7 @@ jobs:
           push: true
           tags: ghcr.io/count-collab/count-collab:latest
 
-  deploy: 
+  deploy:
     runs-on: self-hosted
     needs: docker-build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
