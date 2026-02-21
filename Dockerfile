@@ -26,4 +26,4 @@ EXPOSE 3000
 # Start application
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
-CMD ["node", "build"]
+CMD ["node", "server.js"]

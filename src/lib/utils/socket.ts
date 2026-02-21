@@ -1,44 +1,17 @@
-// Socket.IO server utilities
+// Socket.IO server-side emitters.
+// The Socket.IO server instance is initialized in socket-dev.ts
+// (called from vite.config.ts in dev, or from a custom server in production).
 
-import type { Server as HTTPServer } from "node:http";
-import { Server } from "socket.io";
+import { getIO } from "$lib/utils/socket-dev";
 
-let io: Server | null = null;
-
-export function initializeSocket(httpServer: HTTPServer): Server {
-  io = new Server(httpServer, {
-    cors: {
-      origin: process.env.ALLOWED_ORIGINS?.split(",") || [
-        "http://localhost:5174",
-      ],
-      credentials: true,
-    },
-  });
-
-  io.on("connection", (socket) => {
-    console.log("Client connected:", socket.id);
-
-    socket.on("disconnect", () => {
-      console.log("Client disconnected:", socket.id);
-    });
-
-    // Counter events
-    socket.on("counter:increment", (counterId: string) => {
-      io?.emit("counter:updated", { counterId });
-    });
-
-    socket.on("counter:decrement", (counterId: string) => {
-      io?.emit("counter:updated", { counterId });
-    });
-  });
-
-  return io;
+export function emitCounterUpdate(
+  counterId: string,
+  count: number,
+  updatedAt: Date,
+): void {
+  getIO()?.emit("counter:updated", { counterId, count, updatedAt });
 }
 
-export function getSocket(): Server | null {
-  return io;
-}
-
-export function emitCounterUpdate(counterId: string, newValue: number): void {
-  io?.emit("counter:updated", { counterId, value: newValue });
+export function emitCounterCreated(counterId: string): void {
+  getIO()?.emit("counter:created", { counterId });
 }

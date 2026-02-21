@@ -1,29 +1,66 @@
 <script lang="ts">
-  
-  import { browser } from '$app/environment';
-  import { invalidate } from '$app/navigation';
-import type { ActionData, PageData } from './$types';
+  import { browser } from "$app/environment";
+  import { invalidate } from "$app/navigation";
+  import { onCounterUpdated } from "$lib/stores/counters";
+  import type { PageData } from "./$types";
 
-  const { data, form }: { data: PageData; form: ActionData | null } = $props();
+  const { data }: { data: PageData } = $props();
 
-  const displayCount = $derived(form?.count ?? data.counter.count);
-  const displayUpdatedAt = $derived(form?.updatedAt ?? data.counter.updatedAt);
+  let optimisticCount = $state<number | null>(null);
+  let optimisticUpdatedAt = $state<string | null>(null);
+  let errorMessage = $state<string | null>(null);
+  let isIncrementing = $state(false);
+
+  const displayCount = $derived(optimisticCount ?? data.counter.count);
+  const displayUpdatedAt = $derived(
+    optimisticUpdatedAt ?? data.counter.updatedAt,
+  );
+
+  async function handleIncrement() {
+    if (isIncrementing) return;
+    isIncrementing = true;
+    errorMessage = null;
+
+    try {
+      const response = await fetch(`/c/${data.counter.id}`, { method: "POST" });
+
+      if (!response.ok) {
+        const body = await response.json();
+        errorMessage = body.message ?? "Failed to increment counter.";
+        return;
+      }
+
+      const result: { count: number; updatedAt: string } =
+        await response.json();
+      optimisticCount = result.count;
+      optimisticUpdatedAt = result.updatedAt;
+    } catch {
+      errorMessage = "Network error. Please try again.";
+    } finally {
+      isIncrementing = false;
+    }
+  }
 
   $effect(() => {
     if (!browser) return;
 
-    const interval = setInterval(() => {
-      invalidate(`counter:${data.counter.id}`);
-    }, 4000);
+    const unsubscribe = onCounterUpdated((payload) => {
+      if (payload.counterId !== data.counter.id) return;
 
-    return () => clearInterval(interval);
+      invalidate(`counter:${data.counter.id}`).then(() => {
+        optimisticCount = null;
+        optimisticUpdatedAt = null;
+      });
+    });
+
+    return unsubscribe;
   });
 </script>
 
 <div class="space-y-8">
   <header class="space-y-2">
     <p class="text-sm uppercase tracking-wide text-slate-500">
-      {data.counter.isPublic ? 'Public counter' : 'Private counter'}
+      {data.counter.isPublic ? "Public counter" : "Private counter"}
     </p>
     <h1 class="text-4xl font-bold text-slate-900">{data.counter.title}</h1>
     {#if data.counter.description}
@@ -39,20 +76,20 @@ import type { ActionData, PageData } from './$types';
           <p class="text-sm text-slate-500">Current count</p>
           <p class="text-5xl font-bold text-blue-600">{displayCount}</p>
         </div>
-        <form method="POST" action="?/increment">
-          <button
-            type="submit"
-            class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition"
-          >
-            +1
-          </button>
-        </form>
+        <button
+          type="button"
+          onclick={handleIncrement}
+          disabled={isIncrementing}
+          class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+        >
+          +1
+        </button>
       </div>
       <p class="text-sm text-slate-500">
         Last updated: {new Date(displayUpdatedAt).toLocaleString()}
       </p>
-      {#if form?.message}
-        <p class="text-sm text-red-600">{form.message}</p>
+      {#if errorMessage}
+        <p class="text-sm text-red-600">{errorMessage}</p>
       {/if}
     </div>
 

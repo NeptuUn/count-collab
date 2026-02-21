@@ -58,6 +58,7 @@ All commits must follow the [Conventional Commits](https://www.conventionalcommi
 ```
 
 **Types:**
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -68,6 +69,7 @@ All commits must follow the [Conventional Commits](https://www.conventionalcommi
 - `chore`: Changes to build process, dependencies, or tooling
 
 **Examples:**
+
 - `feat(counters): add counter increment validation`
 - `fix(socket): resolve realtime update sync issue`
 - `docs: update setup instructions`
@@ -82,6 +84,7 @@ Use the following branch naming convention:
 ```
 
 **Types:**
+
 - `feat/` - new features
 - `fix/` - bug fixes
 - `docs/` - documentation
@@ -90,6 +93,7 @@ Use the following branch naming convention:
 - `chore/` - maintenance tasks
 
 **Examples:**
+
 - `feat/counter-validation`
 - `fix/socket-reconnection`
 - `docs/setup-guide`
@@ -97,6 +101,7 @@ Use the following branch naming convention:
 - `test/counter-increments`
 
 ## When implementing features
+
 Add or update tests for the code you change, even if nobody asked.
 
 ## Building and Testing before committing

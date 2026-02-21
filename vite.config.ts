@@ -1,8 +1,22 @@
 import { sveltekit } from "@sveltejs/kit/vite";
+import type { ViteDevServer } from "vite";
 import { defineConfig } from "vite";
 
+function socketIOPlugin() {
+  return {
+    name: "socket-io",
+    async configureServer(server: ViteDevServer) {
+      if (!server.httpServer) return;
+
+      const { initializeSocket } =
+        await import("./src/lib/utils/socket-dev.js");
+      initializeSocket(server.httpServer as import("node:http").Server);
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [sveltekit(), socketIOPlugin()],
   server: {
     hmr: {
       protocol: "ws",
