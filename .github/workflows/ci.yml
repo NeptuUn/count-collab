@@ -67,4 +67,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: count-collab:latest
+          tags: count-collab/count-collab:latest
