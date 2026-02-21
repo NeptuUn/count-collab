@@ -1,8 +1,6 @@
-name: test, lint, and build
+name: PR test, lint, and build
 
 on:
-  push:
-    branches: [develop]
   pull_request:
     branches: [main, develop]
 
@@ -58,8 +56,6 @@ jobs:
 
   docker-build:
     runs-on: self-hosted
-    needs: test-and-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
