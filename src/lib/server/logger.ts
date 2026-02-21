@@ -1,5 +1,3 @@
-import { env } from "$env/dynamic/private";
-
 const LOG_LEVELS = {
   debug: 0,
   info: 1,
@@ -12,7 +10,7 @@ const LOG_LEVELS = {
 type LogLevel = keyof typeof LOG_LEVELS;
 
 function getConfiguredLevel(): LogLevel {
-  const raw = (env.LOG_LEVEL ?? "info").toLowerCase();
+  const raw = (process.env.LOG_LEVEL ?? "info").toLowerCase();
   return raw in LOG_LEVELS ? (raw as LogLevel) : "info";
 }
 
