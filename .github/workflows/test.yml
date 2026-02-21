@@ -1,8 +1,6 @@
-name: test, lint, and build
+name: PR test, lint, and build
 
 on:
-  push:
-    branches: [develop]
   pull_request:
     branches: [main, develop]
 
