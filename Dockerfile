@@ -1,5 +1,6 @@
 FROM node:25-alpine
 
+# Set image label
 LABEL org.opencontainers.image.source=https://github.com/count-collab/count-collab
 
 WORKDIR /app
