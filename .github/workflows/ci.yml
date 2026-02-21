@@ -48,6 +48,8 @@ jobs:
   docker-build:
     runs-on: self-hosted
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    container:
+      image: ubuntu-24.04-lts:latest
 
     steps:
       - uses: actions/checkout@v4
