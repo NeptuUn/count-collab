@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:25-alpine
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g bun
 
 # Copy package files
-COPY package.json bun.lockb ./
+COPY package.json bun.lockb bun.lock ./
 
 # Install dependencies
 RUN bun install --frozen-lockfile
