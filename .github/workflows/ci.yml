@@ -45,6 +45,9 @@ jobs:
       - name: Lint
         run: biome ci
 
+      - name: Prepare Svelte
+        run: bunx svelte-kit sync
+
       - name: Check Svelte
         run: bun run svelte-check
 
