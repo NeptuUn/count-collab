@@ -3,8 +3,6 @@ name: main branch test, build, and deployment
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   test-and-build:
