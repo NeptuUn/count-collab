@@ -34,8 +34,11 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+
       - name: Lint
-        run: bunx @biomejs/biome ci
+        run: biome ci
 
       - name: Prepare Svelte
         run: bun run svelte-prepare
