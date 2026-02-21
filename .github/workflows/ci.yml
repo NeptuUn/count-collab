@@ -9,8 +9,6 @@ on:
 jobs:
   test-and-build:
     runs-on: self-hosted
-    container:
-      image: node:25
 
     services:
       postgres:
