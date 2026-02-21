@@ -58,8 +58,7 @@ jobs:
 
   docker-build:
     runs-on: self-hosted
-    needs: test-and-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v4
