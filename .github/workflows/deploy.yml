@@ -1,4 +1,4 @@
-name: main build & deployment
+name: main branch test, build, and deployment
 
 on:
   push:
@@ -116,7 +116,7 @@ jobs:
                 container_name: count-collab
                 restart: unless-stopped
                 ports:
-                  - "80:3000"
+                  - "80:80"
                 env_file:
                   - .env
                 depends_on:
