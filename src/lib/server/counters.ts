@@ -22,6 +22,8 @@ type CreateCounterInput = {
   isPublic: boolean;
 };
 
+import { logger } from "$lib/server/logger";
+
 const counters = new Map<string, CounterRecord>();
 const history = new Map<string, CounterHistoryEntry[]>();
 let historyId = 1;
@@ -59,6 +61,12 @@ export function createCounter(input: CreateCounterInput): CounterRecord {
   counters.set(counter.id, counter);
   history.set(counter.id, []);
 
+  logger.info("Counter created", {
+    id: counter.id,
+    title: counter.title,
+    isPublic: counter.isPublic,
+  });
+
   return counter;
 }
 
@@ -93,6 +101,13 @@ export function incrementCounter(
   };
 
   counters.set(counterId, updated);
+
+  logger.debug("Counter incremented", {
+    id: counterId,
+    from: counter.count,
+    to: nextValue,
+  });
+
   return updated;
 }
 

@@ -1,5 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { createCounter } from "$lib/server/counters";
+import { logger } from "$lib/server/logger";
 import type { Actions } from "./$types";
 
 type ActionErrors = {
@@ -28,6 +29,7 @@ export const actions: Actions = {
     }
 
     if (Object.keys(errors).length > 0) {
+      logger.warn("Counter creation validation failed", { errors });
       return fail(400, {
         errors,
         values: {

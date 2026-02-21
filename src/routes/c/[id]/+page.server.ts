@@ -4,12 +4,14 @@ import {
   getCounterHistory,
   incrementCounter,
 } from "$lib/server/counters";
+import { logger } from "$lib/server/logger";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, depends }) => {
   const counter = getCounter(params.id);
 
   if (!counter) {
+    logger.warn("Counter not found", { id: params.id });
     throw error(404, "Counter not found");
   }
 
@@ -26,6 +28,7 @@ export const actions: Actions = {
     const counter = incrementCounter(params.id, 1);
 
     if (!counter) {
+      logger.warn("Increment failed: counter not found", { id: params.id });
       return fail(404, { message: "Counter not found." });
     }
 
