@@ -2,13 +2,13 @@ name: Test & Build
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   test-and-build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     services:
       postgres:
@@ -37,6 +37,9 @@ jobs:
       - name: Lint
         run: bun run lint:ci
 
+      - name: Prepare Svelte
+        run: bun run svelte-prepare
+
       - name: Check Svelte
         run: bun run svelte-check
 
@@ -47,6 +50,7 @@ jobs:
 
   docker-build:
     runs-on: self-hosted
+    needs: test-and-build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -67,3 +71,11 @@ jobs:
         with:
           push: true
           tags: ghcr.io/count-collab/count-collab:latest
+
+  deploy: 
+    runs-on: self-hosted
+    needs: test-and-build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4

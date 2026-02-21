@@ -7,6 +7,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "svelte-prepare": "svelte-kit sync",
     "svelte-check": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "biome lint .",
     "lint:ci": "biome ci",
