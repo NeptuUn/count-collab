@@ -1,6 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { invalidate } from "$app/navigation";
+  import { onCounterUpdated } from "$lib/stores/counters";
   import type { PageData } from "./$types";
 
   const { data }: { data: PageData } = $props();
@@ -33,10 +34,6 @@
         await response.json();
       optimisticCount = result.count;
       optimisticUpdatedAt = result.updatedAt;
-
-      await invalidate(`counter:${data.counter.id}`);
-      optimisticCount = null;
-      optimisticUpdatedAt = null;
     } catch {
       errorMessage = "Network error. Please try again.";
     } finally {
@@ -47,11 +44,16 @@
   $effect(() => {
     if (!browser) return;
 
-    const interval = setInterval(() => {
-      invalidate(`counter:${data.counter.id}`);
-    }, 4000);
+    const unsubscribe = onCounterUpdated((payload) => {
+      if (payload.counterId !== data.counter.id) return;
 
-    return () => clearInterval(interval);
+      invalidate(`counter:${data.counter.id}`).then(() => {
+        optimisticCount = null;
+        optimisticUpdatedAt = null;
+      });
+    });
+
+    return unsubscribe;
   });
 </script>
 

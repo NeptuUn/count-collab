@@ -1,14 +1,37 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import { browser } from "$app/environment";
+  import { invalidate } from "$app/navigation";
+  import { onCounterCreated, onCounterUpdated } from "$lib/stores/counters";
+  import type { PageData } from "./$types";
 
   const { data }: { data: PageData } = $props();
+
+  $effect(() => {
+    if (!browser) return;
+
+    const unsubUpdate = onCounterUpdated(() => {
+      invalidate("counters:list");
+    });
+
+    const unsubCreated = onCounterCreated(() => {
+      invalidate("counters:list");
+    });
+
+    return () => {
+      unsubUpdate();
+      unsubCreated();
+    };
+  });
 </script>
 
 <div class="space-y-8">
   <section class="text-center py-12">
-    <h1 class="text-5xl font-bold text-slate-900 mb-4">Welcome to Count Collab</h1>
+    <h1 class="text-5xl font-bold text-slate-900 mb-4">
+      Welcome to Count Collab
+    </h1>
     <p class="text-xl text-slate-600 mb-8">
-      Create and share counters that anyone can increment and follow in real-time.
+      Create and share counters that anyone can increment and follow in
+      real-time.
     </p>
     <div class="flex gap-4 justify-center">
       <a
@@ -28,16 +51,24 @@
 
   <section class="grid md:grid-cols-3 gap-6">
     <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-lg font-semibold text-slate-900 mb-2">📊 Easy Tracking</h3>
-      <p class="text-slate-600">Create counters with titles and descriptions. Track anything you want.</p>
+      <h3 class="text-lg font-semibold text-slate-900 mb-2">
+        📊 Easy Tracking
+      </h3>
+      <p class="text-slate-600">
+        Create counters with titles and descriptions. Track anything you want.
+      </p>
     </div>
     <div class="bg-white rounded-lg shadow p-6">
       <h3 class="text-lg font-semibold text-slate-900 mb-2">🔗 Shareable</h3>
-      <p class="text-slate-600">Share counters directly with unique links. No login required.</p>
+      <p class="text-slate-600">
+        Share counters directly with unique links. No login required.
+      </p>
     </div>
     <div class="bg-white rounded-lg shadow p-6">
       <h3 class="text-lg font-semibold text-slate-900 mb-2">⚡ Real-time</h3>
-      <p class="text-slate-600">See updates instantly as others interact with your counters.</p>
+      <p class="text-slate-600">
+        See updates instantly as others interact with your counters.
+      </p>
     </div>
   </section>
 
@@ -57,7 +88,9 @@
                   <p class="text-sm text-slate-600">{counter.description}</p>
                 {/if}
               </div>
-              <div class="text-3xl font-bold text-blue-600">{counter.count}</div>
+              <div class="text-3xl font-bold text-blue-600">
+                {counter.count}
+              </div>
             </div>
           </a>
         {/each}
@@ -65,7 +98,9 @@
     </section>
   {:else}
     <section class="bg-white rounded-lg shadow p-8 text-center text-slate-600">
-      No counters yet. <a href="/create" class="text-blue-600">Create the first one</a>.
+      No counters yet. <a href="/create" class="text-blue-600"
+        >Create the first one</a
+      >.
     </section>
   {/if}
 </div>

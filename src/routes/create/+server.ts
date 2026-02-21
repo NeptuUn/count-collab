@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { createCounter } from "$lib/server/counters";
 import { logger } from "$lib/server/logger";
+import { emitCounterCreated } from "$lib/utils/socket";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -25,6 +26,8 @@ export const POST: RequestHandler = async ({ request }) => {
     description,
     isPublic: visibility === "public",
   });
+
+  emitCounterCreated(counter.id);
 
   return json({ id: counter.id }, { status: 201 });
 };
