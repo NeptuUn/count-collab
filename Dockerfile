@@ -1,5 +1,7 @@
 FROM node:25-alpine
 
+LABEL org.opencontainers.image.source=https://github.com/count-collab/count-collab
+
 WORKDIR /app
 
 # Install bun
