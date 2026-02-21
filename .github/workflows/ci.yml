@@ -49,7 +49,7 @@ jobs:
     runs-on: self-hosted
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     container:
-      image: ubuntu-20.04-lts:latest
+      image: ubuntu:latest
 
     steps:
       - uses: actions/checkout@v4
