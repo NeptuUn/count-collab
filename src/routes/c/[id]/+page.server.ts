@@ -1,11 +1,7 @@
-import { error, fail } from "@sveltejs/kit";
-import {
-  getCounter,
-  getCounterHistory,
-  incrementCounter,
-} from "$lib/server/counters";
+import { error } from "@sveltejs/kit";
+import { getCounter, getCounterHistory } from "$lib/server/counters";
 import { logger } from "$lib/server/logger";
-import type { Actions, PageServerLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, depends }) => {
   const counter = getCounter(params.id);
@@ -21,20 +17,4 @@ export const load: PageServerLoad = async ({ params, depends }) => {
     counter,
     history: getCounterHistory(params.id),
   };
-};
-
-export const actions: Actions = {
-  increment: async ({ params }) => {
-    const counter = incrementCounter(params.id, 1);
-
-    if (!counter) {
-      logger.warn("Increment failed: counter not found", { id: params.id });
-      return fail(404, { message: "Counter not found." });
-    }
-
-    return {
-      count: counter.count,
-      updatedAt: counter.updatedAt,
-    };
-  },
 };

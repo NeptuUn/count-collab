@@ -9,7 +9,6 @@ Count Collab is a lightweight, shareable counter app. Create a counter, send the
 - Private counters accessible via a shareable link
 - No login for the MVP
 
-
 ## Getting Started
 
 Install dependencies:
